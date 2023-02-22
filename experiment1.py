@@ -107,3 +107,5 @@ if __name__ == '__main__':
             print(f"The most popular color in {img_path}\t{rgb} covers {percentage}%")
 
     print('\nTime: ', datetime.now() - start)
+
+# Limiting the number of processes/cores: with Pool(processes=2) as mp_pool:
