@@ -64,22 +64,22 @@ if __name__ == '__main__':
     image_paths = [*image_paths, *image_paths]
 
     # TODO: Running consecutively
-    # start = datetime.now()
-    #
-    # for img_path in image_paths:
-    #     img_path, rgb, percentage = get_most_popular_color(image_path=img_path)
-    #     print(f"The most popular color in {img_path}\t{rgb} covers {percentage}%")
-    #
-    # print('\nTime: ', datetime.now() - start)
+    start = datetime.now()
+
+    for img_path in image_paths:
+        img_path, rgb, percentage = get_most_popular_color(image_path=img_path)
+        print(f"The most popular color in {img_path}\t{rgb} covers {percentage}%")
+
+    print('\nTime: ', datetime.now() - start)
 
     # TODO: Using map
-    # start = datetime.now()
-    #
-    # results = map(get_most_popular_color, image_paths)
-    # for img_path, rgb, percentage in list(results):
-    #     print(f"The most popular color in {img_path}\t{rgb} covers {percentage}%")
-    #
-    # print('\nTime: ', datetime.now() - start)
+    start = datetime.now()
+
+    results = map(get_most_popular_color, image_paths)
+    for img_path, rgb, percentage in list(results):
+        print(f"The most popular color in {img_path}\t{rgb} covers {percentage}%")
+
+    print('\nTime: ', datetime.now() - start)
 
     # TODO: Multiprocessing: Map
     start = datetime.now()
@@ -90,3 +90,20 @@ if __name__ == '__main__':
 
     print('\nTime: ', datetime.now() - start)
 
+    # TODO: Multiprocessing: Iterator
+    start = datetime.now()
+    with Pool() as mp_pool:
+        results = mp_pool.imap(get_most_popular_color, image_paths)
+        for img_path, rgb, percentage in results:
+            print(f"The most popular color in {img_path}\t{rgb} covers {percentage}%")
+
+    print('\nTime: ', datetime.now() - start)
+
+    # TODO: Multiprocessing: Iterator ignoring input-order
+    start = datetime.now()
+    with Pool() as mp_pool:
+        results = mp_pool.imap_unordered(get_most_popular_color, image_paths)
+        for img_path, rgb, percentage in results:
+            print(f"The most popular color in {img_path}\t{rgb} covers {percentage}%")
+
+    print('\nTime: ', datetime.now() - start)
